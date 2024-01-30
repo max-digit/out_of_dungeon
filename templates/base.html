@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+        <link rel="icon" type="image/png" href="{{url_for('static', filename='images/favicon.jpg')}}" >
+        <title>Подземелье. Путь наверх</title>
+    </head>
+    <body>
+        {% block content %}
+            <div class="content">
+                {% block app_content %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+        {% block footer %}
+        <footer>
+            <a href="https://wallpapercrafter.com/293579-castle-hohenzollern-sunrise-fortress-morgenstimmun.html">
+                Источник фото
+            </a>
+            <div class="contacts">
+                <p>Контакты: <a href="mailto:maxharley@mail.ru">maxharley</a></p>
+            </div>
+        </footer>
+    {% endblock %}
+    </body>
+</html>
+
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% block game %}
+    <div class="game">
+        <div class="legend game_block">
+            <p>
+                {{ castle.player_name }}, Вы вчера хорошо повеселились на балу в замке барона Мюнхгаузена!
+                <br>Вчерашний бал удался, но утром Вы проснулись... в подземельи замка! Похоже, это продуктовый погреб.
+                <br>Снеди здесь не счесть, но Вам не до неё - здесь очень душно. И ваша спутница наверняка вас заждалась!
+            </p>
+            <p>
+                Хорошо бы выбраться на свежий воздух, пока она не ушла...
+            </p>
+            <p>
+                Вам нужно найти балкон!
+            </p>
+            <p>Вы осматриваетесь и находите шкатулку, на которой написно: "План замка". Он бы сейчас Вам очень пригодился!</p>
+            <p>Но на сундуке висит кодовый замок с двумя цилиндрами. На одном из них - месяц, а на втором - число... <br>
+                Вы вспоминаете, что барон говорил Вам об одном лишнем дне, который он вычислил в этом году и решил поставить его в конец какого-то месяца.
+                Подберите число и месяц - и выбраться отсюда будет гораздо легче!</p>
+                <form action="" method="post">
+                    <p>{{ form.day }} {{ form.month }} <input id="submit" type="submit" value="Проверить"></p>
+                </form>
+                {% if session['castle_map_opened'] %}
+                    <p>Ура! Вы нашли план замка!</p>
+                {% elif not form.day.data or not form.month.data %}
+                    {{ pass }}
+                {% else %}
+                    <p>Попробуйте ещё!</p>                
+                {% endif %}
+        </div>
+        {% if session['castle_map_opened'] %}
+            <div class="map">
+                <img src="{{ url_for('static', filename='images/castle_map.png') }}">
+            </div>
+        {% endif %}
+        <div class="gameplay game_block">
+            <form action="" method="post">
+                {% if form.field not in ('csrf_token', 'submit') %}
+                    <p>{{ form.way.label }}</p>
+                    <div class="way">
+                        <p>{{ form.way }}</p>
+                    </div>
+                    <p>{{ form.steps.label }}</p>
+                    <p>{{ form.steps }}</p>
+                {% endif %}
+                <p>{{ form.submit }}</p>
+            </form>
+            <div class="position">
+                {% if castle.pos() != castle.finish %}
+                    Вы в комнате {{ castle.pos() }}
+                {% else %}
+                    Ура! Вы выбрались на {{ castle.finish }}!
+                {% endif %}
+            </div>                
+            {% if castle.pos() == castle.finish %}
+                <div class="position">
+                    <p>Барон: "{{ castle.player_name }}, мы рады Вас видеть! Хорошо, что Вы нашлись!
+                        <br>Присоединяйтесь: у нас тут утка.
+                        <br>С яблоками :-)"
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

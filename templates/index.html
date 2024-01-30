@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    {% block home %}
+        <div class="home">
+            <a href="{{ url_for('logout') }}">Вернуться домой</a>
+        </div>
+    {% endblock %}
+    {% block game %}
+        <div class="start game_play game_block">
+            <p>Готовы отправиться к приключениям?</p>
+            <form method="post" action="">
+                <p>{{ form.player_name.label }} {{ form.player_name }}</p>
+                <a href="{{ url_for('game', name=name) }}">
+                    <input type="submit" value="Начать путешествие!" id="begin">
+                </a>
+            </form>
+        </div>
+    {% endblock %}
+{% endblock %}
